@@ -1,5 +1,7 @@
 package com.example.battyalarm
 
-class AlarmViewModel {
+import androidx.lifecycle.ViewModel
 
+class AlarmViewModel(): ViewModel() {
+    var title = "Batty Alarm"
 }

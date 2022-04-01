@@ -1,15 +1,18 @@
 package com.example.battyalarm
 
 import android.os.Bundle
+import android.widget.TextClock
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.viewinterop.AndroidView
 import com.example.battyalarm.ui.theme.BattyAlarmTheme
 
 class MainActivity : ComponentActivity() {
@@ -19,25 +22,20 @@ class MainActivity : ComponentActivity() {
             BattyAlarmTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(
-                    modifier = Modifier.fillMaxSize(),
+                    modifier = Modifier.fillMaxSize().padding(16.dp),
                     color = MaterialTheme.colors.background
                 ) {
-                    TitleOfApp()
+                    AlarmView().Render()
                 }
             }
         }
     }
 }
 
-@Composable
-fun TitleOfApp() {
-    Text(text = "Batty Alarm")
-}
-
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
     BattyAlarmTheme {
-        TitleOfApp()
+        AlarmView().Render()
     }
 }
