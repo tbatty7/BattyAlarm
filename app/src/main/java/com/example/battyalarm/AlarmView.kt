@@ -30,6 +30,7 @@ class AlarmView() {
             Spacer(modifier = Modifier.size(20.dp))
             TextClock()
         }
+
     }
 
     @Composable
