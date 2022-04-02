@@ -3,7 +3,6 @@ package com.example.battyalarm
 import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
-import android.content.Context.ALARM_SERVICE
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -33,60 +32,62 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colors.background
                 ) {
 //                    AlarmView().Render()
-                    Timer()
+                    AlarmScreen()
                 }
             }
         }
     }
-}
 
-@Composable
-fun Timer() {
-    val context = LocalContext.current
-    Scaffold(topBar = {
-        TopAppBar(
-            title = {
-                Text(
-                    text = "AlarmManager Notification",
-                    modifier = Modifier.fillMaxWidth(),
-                    textAlign = TextAlign.Center
+
+    @Composable
+    fun AlarmScreen() {
+        val context = LocalContext.current
+        Scaffold(topBar = {
+            TopAppBar(
+                title = {
+                    Text(
+                        text = "AlarmManager Notification",
+                        modifier = Modifier.fillMaxWidth(),
+                        textAlign = TextAlign.Center
                     )
                 }
             )
         }
-    ) {
-        Column(
-            modifier = Modifier.fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
         ) {
-            Text(text = "Set Alarm Time: 10 seconds",
-                modifier = Modifier.padding(10.dp),
-                fontSize = 16.sp
-                )
-            Button(
-                onClick = {
-                    setAlarm(context)
-                }
+            Column(
+                modifier = Modifier.fillMaxSize(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
             ) {
-                Text(text = "Set Alarm")
+                Text(
+                    text = "Set Alarm Time: 5 Seconds",
+                    modifier = Modifier.padding(10.dp),
+                    fontSize = 16.sp
+                )
+                Button(
+                    onClick = {
+                        setAlarm(context, 5000)
+                    }
+                ) {
+                    Text(text = "Set Alarm")
+                }
             }
-        }
         }
     }
 
-private fun setAlarm(context: Context) {
-    val timeInSeconds = System.currentTimeMillis() + 10000
-    val alarmManager = context.getSystemService(ALARM_SERVICE) as AlarmManager
-    val intent = Intent(context, BattyAlarm::class.java)
-    val pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0)
-    alarmManager.set(AlarmManager.RTC_WAKEUP, timeInSeconds, pendingIntent)
-}
+    private fun setAlarm(context: Context, millisecondsUntilAlarm: Int) {
+        val alarmTimeInMilliSeconds = System.currentTimeMillis() + millisecondsUntilAlarm
+        val alarmManager = context.getSystemService(ALARM_SERVICE) as AlarmManager
+        val intent = Intent(context, BattyAlarm::class.java)
+        val pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0)
+        alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTimeInMilliSeconds, pendingIntent)
+    }
 
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    BattyAlarmTheme {
-        AlarmView().Render()
+    @Preview(showBackground = true)
+    @Composable
+    fun DefaultPreview() {
+        BattyAlarmTheme {
+            AlarmView().Render()
+        }
     }
 }

@@ -9,7 +9,6 @@ import android.os.Build
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import java.lang.Exception
-import kotlin.math.log
 
 class BattyAlarm: BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent?) {
@@ -30,11 +29,12 @@ class BattyAlarm: BroadcastReceiver() {
             manager.createNotificationChannel(channel)
         }
 
-        val builder = NotificationCompat.Builder(context, channelId)
+        val notification = NotificationCompat.Builder(context, channelId)
             .setContentTitle(title)
             .setContentText(description)
             .setSmallIcon(androidx.core.R.drawable.notification_template_icon_bg)
-        manager.notify(1, builder.build())
+            .build()
+        manager.notify(1, notification)
     }
 
 }
