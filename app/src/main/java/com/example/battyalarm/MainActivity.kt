@@ -46,7 +46,7 @@ class MainActivity : ComponentActivity() {
             TopAppBar(
                 title = {
                     Text(
-                        text = "AlarmManager Notification",
+                        text = "Batty Alarm",
                         modifier = Modifier.fillMaxWidth(),
                         textAlign = TextAlign.Center
                     )
