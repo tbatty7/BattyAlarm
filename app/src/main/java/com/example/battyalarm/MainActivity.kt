@@ -87,10 +87,10 @@ class MainActivity : ComponentActivity() {
 
     private fun getMutableFlag() =
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-        PendingIntent.FLAG_MUTABLE
-    } else {
-        0
-    }
+            PendingIntent.FLAG_UPDATE_CURRENT
+        } else {
+            0
+        }
 
     @Preview(showBackground = true)
     @Composable
