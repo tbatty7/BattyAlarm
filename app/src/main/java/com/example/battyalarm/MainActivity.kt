@@ -79,6 +79,7 @@ class MainActivity : ComponentActivity() {
         val alarmTimeInMilliSeconds = System.currentTimeMillis() + millisecondsUntilAlarm
         val alarmManager = context.getSystemService(ALARM_SERVICE) as AlarmManager
         val intent = Intent(context, BattyAlarm::class.java)
+        intent.putExtra("any_data", 123)
         val pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0)
         alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTimeInMilliSeconds, pendingIntent)
     }
