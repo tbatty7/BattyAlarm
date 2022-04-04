@@ -81,16 +81,23 @@ class MainActivity : ComponentActivity() {
         val alarmManager = context.getSystemService(ALARM_SERVICE) as AlarmManager
         val intent = Intent(context, BattyAlarm::class.java)
         intent.putExtra("any_data", 123)
-        val pendingIntent = PendingIntent.getBroadcast(context, 0, intent, getMutableFlag())
+        val pendingIntent = PendingIntent.getBroadcast(
+            context,
+            generateRequestNumber(),
+            intent,
+            getFlag()
+        )
         alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTimeInMilliSeconds, pendingIntent)
     }
 
-    private fun getMutableFlag() =
+    private fun getFlag() =
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             PendingIntent.FLAG_UPDATE_CURRENT
         } else {
             0
         }
+
+    private fun generateRequestNumber() = (0..1000).random()
 
     @Preview(showBackground = true)
     @Composable
