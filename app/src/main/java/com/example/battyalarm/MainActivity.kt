@@ -4,6 +4,7 @@ import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -80,8 +81,15 @@ class MainActivity : ComponentActivity() {
         val alarmManager = context.getSystemService(ALARM_SERVICE) as AlarmManager
         val intent = Intent(context, BattyAlarm::class.java)
         intent.putExtra("any_data", 123)
-        val pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0)
+        val pendingIntent = PendingIntent.getBroadcast(context, 0, intent, getMutableFlag())
         alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTimeInMilliSeconds, pendingIntent)
+    }
+
+    private fun getMutableFlag() =
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+        PendingIntent.FLAG_MUTABLE
+    } else {
+        0
     }
 
     @Preview(showBackground = true)
