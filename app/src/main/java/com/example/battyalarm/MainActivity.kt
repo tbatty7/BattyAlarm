@@ -97,7 +97,7 @@ class MainActivity : ComponentActivity() {
             0
         }
 
-    private fun generateRequestNumber() = (0..1000).random()
+    private fun generateRequestNumber() = 0
 
     @Preview(showBackground = true)
     @Composable
